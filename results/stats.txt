@@ -1,0 +1,44 @@
+Overall score per agent (mean over 30 lengths x 10 episodes)
+
+strategy      n     mean      std   median              95% CI  P1fail  P2fail     P3
+baseline     10     4213     6995      235        [-791, 9217]    0.77    0.02   0.21
+uniform      10    14618    11568    12404       [6342, 22893]    0.07    0.20   0.72
+adaptive     10    12186     5917    13687       [7953, 16419]    0.15    0.15   0.70
+adversarial  10    11442     8464    11813       [5387, 17497]    0.15    0.18   0.67
+
+Kruskal-Wallis: H = 9.24, p = 0.02628
+
+Pairwise (per-seed scores): Mann-Whitney U (Holm), Welch t, Cliff's delta
+     baseline vs uniform     U= 16.0 p=0.0113 p_holm=0.0680 | t= -2.43 p=0.0281 | delta=-0.68 | diff=-10405
+     baseline vs adaptive    U= 16.0 p=0.0113 p_holm=0.0680 | t= -2.75 p=0.0134 | delta=-0.68 | diff=-7973
+     baseline vs adversarial U= 21.0 p=0.0312 p_holm=0.1248 | t= -2.08 p=0.0524 | delta=-0.58 | diff=-7229
+      uniform vs adaptive    U= 48.0 p=0.9097 p_holm=1.0000 | t=  0.59 p=0.5638 | delta=-0.04 | diff=+2432
+      uniform vs adversarial U= 54.0 p=0.7913 p_holm=1.0000 | t=  0.70 p=0.4934 | delta=+0.08 | diff=+3175
+     adaptive vs adversarial U= 50.0 p=1.0000 p_holm=1.0000 | t=  0.23 p=0.8228 | delta=+0.00 | diff=+744
+
+Paired over pole lengths (seed-averaged): Wilcoxon signed-rank (Holm)
+     baseline vs uniform     W=   0.0 p=1.863e-09 p_holm=1.118e-08 | baseline better on 0/30
+     baseline vs adaptive    W=   0.0 p=1.863e-09 p_holm=1.118e-08 | baseline better on 0/30
+     baseline vs adversarial W=   3.0 p=9.313e-09 p_holm=3.725e-08 | baseline better on 1/30
+      uniform vs adaptive    W=  67.0 p=0.000345 p_holm=0.0006899 | uniform better on 24/30
+      uniform vs adversarial W=  24.0 p=1.419e-06 p_holm=4.258e-06 | uniform better on 26/30
+     adaptive vs adversarial W= 163.0 p=0.1579 p_holm=0.1579 | adaptive better on 21/30
+
+Planned contrast B vs pooled S1-S3 (Mann-Whitney U)
+  overall      U=53 p=0.00258 delta=-0.65
+  fail_phase1  U=283 p=3.13e-05 delta=+0.89
+Phase-1 failure rate, B vs each strategy (Mann-Whitney U, Holm)
+  B vs uniform     U=98 p=0.000305 p_holm=0.000915 delta=+0.96
+  B vs adaptive    U=93 p=0.00128 p_holm=0.00256 delta=+0.86
+  B vs adversarial U=92 p=0.00165 p_holm=0.00256 delta=+0.84
+
+Robustness metrics (per-seed means / medians; Kruskal-Wallis all 4 and S1-S3)
+  wind_survival B=0.645/0.939 S1=0.781/0.807 S2=0.803/0.817 S3=0.709/0.799 | KW all p=0.8840 | KW S1-S3 p=0.7897
+  phase3_steps  B=6.78e+03/0 S1=1.77e+04/1.35e+04 S2=1.48e+04/1.46e+04 S3=1.24e+04/1.35e+04 | KW all p=0.0906 | KW S1-S3 p=0.7451
+  fail_phase1   B=0.765/0.923 S1=0.0727/0.04 S2=0.148/0.112 S3=0.149/0.0333 | KW all p=0.0004 | KW S1-S3 p=0.5376
+
+Brown-Forsythe (seed variance, S1-S3): W=1.35 p=0.2769
+  uniform vs adaptive: W=1.88 p=0.1869
+  uniform vs adversarial: W=0.09 p=0.7666
+  adaptive vs adversarial: W=3.00 p=0.1002
+Spearman(validation score, test score), n=40: rho=0.62 p=0.0000
