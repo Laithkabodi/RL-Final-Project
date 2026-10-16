@@ -1,0 +1,8 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.0
+gym==0.26.2
+numpy<2
+pandas
+scipy
+matplotlib
+openpyxl
